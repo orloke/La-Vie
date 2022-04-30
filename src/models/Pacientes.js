@@ -16,7 +16,7 @@ const Pacientes = db.define('Pacientes',{
     cpf:{
         type: DataTypes.INTEGER,
     },
-    idade:{
+    nascimento:{
         type: DataTypes.INTEGER,
     },
     email:{
