@@ -1,0 +1,1 @@
+const {Pacientes, Psicologos, PacientesPsicologos} = require('..models/')
