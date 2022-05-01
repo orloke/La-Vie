@@ -7,7 +7,8 @@ const routes = express.Router()
 
 routes.get('/pacientes',pacientesController.listar)
 routes.post('/pacientes',createPacientes, pacientesController.cadastrar)
-routes.put('/pacientes/:id', pacientesController.alterar)
+routes.put('/pacientes/:id',createPacientes, pacientesController.alterar)
+routes.delete('/pacientes/:id', pacientesController.deletar)
 
 
 module.exports = routes
