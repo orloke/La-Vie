@@ -1,5 +1,5 @@
 const {Pacientes} = require('../models/')
-const {convertData} = require('../helper')
+const {helperDate} = require('../helper')
 
 const pacientesController = {
     async listar(req,res){
@@ -8,11 +8,15 @@ const pacientesController = {
 
     },
     async cadastrar(req,res){
-        const {nome, telefone, cpf, idade, email} = req.body
+        const {NOME, EMAIL, DATA_NASCIMENTO} = req.body
+        const newDate = helperDate.convertDate(DATA_NASCIMENTO)
+        try {
+            const novoPaciente = await Pacientes.create({NOME, EMAIL, DATA_NASCIMENTO:newDate})
+            res.json(novoPaciente)
+        } catch (error) {
+            res.send('Veja se o email está no formato "algumacoisa@email.com"\nData deve estar no formato DD/MM/AAAA');
+        }
 
-        const novoPaciente = await Pacientes.create({nome, telefone, cpf, idade:novaIdade, email})
-
-        res.json(novoPaciente)
     },
     async alterar(req,res){
         const {id} = req.params
