@@ -2,18 +2,18 @@ const db = require('../database')
 const { DataTypes }  = require('sequelize')
 
 const Pacientes = db.define('Pacientes',{
-    ID_PACIENTE:{
+    id_paciente:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
-    NOME:{
+    nome:{
         type: DataTypes.STRING
     },
-    DATA_NASCIMENTO:{
+    data_nascimento:{
         type: DataTypes.DATE,
     },
-    EMAIL:{
+    email:{
         type: DataTypes.STRING,
     },
 

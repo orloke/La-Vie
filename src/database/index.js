@@ -1,6 +1,6 @@
 const sequelize = require('sequelize')
 
-const DB_NAME = 'mydb'
+const DB_NAME = 'lavie'
 const DB_USER = 'root'
 const DB_PASS = 'password'
 const DB_CONFIG = {

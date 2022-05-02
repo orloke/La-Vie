@@ -23,10 +23,10 @@ const pacientesController = {
 
     },
     async cadastrar(req,res){
-        const {NOME, EMAIL, DATA_NASCIMENTO} = req.body
-        const newDate = helperDate.convertDate(DATA_NASCIMENTO)
+        const {nome, email, data_nascimento} = req.body
+        const newDate = helperDate.convertDate(data_nascimento)
         try {
-            const novoPaciente = await Pacientes.create({NOME, EMAIL, DATA_NASCIMENTO:newDate})
+            const novoPaciente = await Pacientes.create({nome, email, data_nascimento:newDate})
             res.status(201).json(novoPaciente)
         } catch (error) {
             res.status(400).send('Veja se o email está no formato "algumacoisa@email.com"\nData deve estar no formato DD/MM/AAAA');
@@ -35,9 +35,9 @@ const pacientesController = {
     },
     async alterar(req,res){
         const {id} = req.params
-        const {NOME, EMAIL, DATA_NASCIMENTO} = req.body
+        const {nome, email, data_nascimento} = req.body
         try {
-            await Pacientes.update({NOME, EMAIL, DATA_NASCIMENTO},{
+            await Pacientes.update({nome, email, data_nascimento},{
                 where:{
                     ID_PACIENTE: id,
                 }
