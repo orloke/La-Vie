@@ -2,10 +2,10 @@ const sequelize = require('sequelize')
 
 const DB_NAME = 'lavie'
 const DB_USER = 'root'
-const DB_PASS = 'password'
+const DB_PASS = 'danilo080590'
 const DB_CONFIG = {
     dialect: 'mysql',
-    host: 'localhost',
+    host: 'lavie-db.cnmu2vzs9qad.sa-east-1.rds.amazonaws.com',
     port: '3306'
 }
 
