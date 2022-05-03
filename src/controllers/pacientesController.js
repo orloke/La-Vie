@@ -3,45 +3,58 @@ const {helperDate} = require('../helper')
 
 const pacientesController = {
     async listar(req,res){
-        const {id} = req.query
+        try{
+            const {id} = req.query
 
-        let filter = {}
+            let filter = {}
 
-        if(id){
-            Object.assign(filter,{
-                where:{
-                    id_paciente:id
-                }
-            })
+            if(id){
+                Object.assign(filter,{
+                    where:{
+                        id_paciente:id
+                    }
+                })
+            }
+
+            const listaPacientes = await Pacientes.findAll(filter)
+
+            if(id && listaPacientes.length==0){
+                return res.status(404).json('Id não encontrado!')
+            }
+
+            res.status(200).json(listaPacientes)
+
+        }catch (error) {
+            res.status(400).send('Ocorreu algum erro. Entre em contato com o administrador do sistema');
         }
-
-        const listaPacientes = await Pacientes.findAll(filter)
-        if(id && listaPacientes.length==0){
-            return res.status(404).json('Id não encontrado!')
-        }
-        res.status(200).json(listaPacientes)
-
     },
     async cadastrar(req,res){
-        const {nome, email, data_nascimento} = req.body
-        const newDate = helperDate.convertDate(data_nascimento)
         try {
-            const novoPaciente = await Pacientes.create({nome, email, data_nascimento:newDate})
-            res.status(201).json(novoPaciente)
+        const {nome, email, data_nascimento} = req.body
+        const newDate = helperDate.convertDate(data_nascimento)        
+        const novoPaciente = await Pacientes.create({nome, email, data_nascimento:newDate})
+        res.status(201).json(novoPaciente)
+
         } catch (error) {
-            res.status(400).send('Veja se o email está no formato "algumacoisa@email.com"\nData deve estar no formato DD/MM/AAAA');
+            res.status(400).send('Ocorreu algum erro. Entre em contato com o administrador do sistema');
         }
 
     },
     async alterar(req,res){
-        const {id} = req.params
-        const {nome, email, data_nascimento} = req.body
         try {
-            await Pacientes.update({nome, email, data_nascimento},{
+            const {id} = req.params
+            const {nome, email, data_nascimento} = req.body
+        
+            const procurarPaciente = await Pacientes.update({nome, email, data_nascimento},{
                 where:{
                     ID_PACIENTE: id,
                 }
             })
+
+            if(!procurarPaciente[0]){
+                return res.send('Id não encontrado!')
+            }
+
             const alterarPaciente = await Pacientes.findByPk(id)
             res.json(alterarPaciente)
             
@@ -51,8 +64,9 @@ const pacientesController = {
 
     },
     async deletar(req,res){
-        const {id} = req.params
+        
         try {
+            const {id} = req.params
             const deletarPaciente = await Pacientes.destroy({
                 where:{
                     ID_PACIENTE: id,

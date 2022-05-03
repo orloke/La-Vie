@@ -4,16 +4,10 @@ const { helperDate } = require("../helper");
 const atendimentosController = {
 	async listarAtendimentos(req, res) {
 		try {
-			let listaDeAtendimentos = await Atendimentos.findAll();
-
-			if (listaDeAtendimentos == []) {
-				res.status(200).json(listaDeAtendimentos);
-			} else {
-				listaDeAtendimentos = await Atendimentos.findAll({
-					include: [Pacientes, Psicologos],
-				});
-				res.status(200).json(listaDeAtendimentos);
-			}
+			let listaDeAtendimentos = await Atendimentos.findAll({
+				include: [Pacientes, Psicologos],
+			});
+			res.status(200).json(listaDeAtendimentos);
 
 		} catch (error) {
 			console.error("Erro ao buscar a lista de atendimentos, tente novamente.");
@@ -40,18 +34,18 @@ const atendimentosController = {
 	},
 
 	async cadastrarAtendimentos(req, res) {
-		// const { id_psicologo, id_paciente, data_atendimento, observacoes } =
-		// 	req.body;
-		// const newDate = helperDate.convertDate(data_atendimento);
+		const { id_psicologo, id_paciente, data_atendimento, observacoes } =
+			req.body;
+		const newDate = helperDate.convertDate(data_atendimento);
 
-		// const novoAtendimento = await Atendimentos.create({
-		// 	id_psicologo,
-		// 	id_paciente,
-		// 	data_atendimento: newDate,
-		// 	observacoes,
-		// });
+		const novoAtendimento = await Atendimentos.create({
+			id_psicologo,
+			id_paciente,
+			data_atendimento: newDate,
+			observacoes,
+		});
 
-		// res.status(201).json(novoAtendimento);
+		res.status(201).json(novoAtendimento);
 	},
 };
 

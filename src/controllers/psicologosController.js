@@ -7,9 +7,9 @@ const psicologosController = {
 
     },
     async cadastrar(req,res){
-        const {nome, telefone, cpf, registro, email, senha} = req.body
+        const {nome, email, senha, apresentacao} = req.body
 
-        const novoPsicologos = await Psicologos.create({nome, telefone, cpf, registro, email, senha})
+        const novoPsicologos = await Psicologos.create({nome, email, senha, apresentacao})
 
         res.json(novoPsicologos)
     },
