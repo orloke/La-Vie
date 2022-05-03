@@ -44,8 +44,9 @@ const pacientesController = {
         try {
             const {id} = req.params
             const {nome, email, data_nascimento} = req.body
+            const newDate = helperDate.convertDate(data_nascimento)  
         
-            const procurarPaciente = await Pacientes.update({nome, email, data_nascimento},{
+            const procurarPaciente = await Pacientes.update({nome, email, data_nascimento: newDate},{
                 where:{
                     ID_PACIENTE: id,
                 }
@@ -59,6 +60,7 @@ const pacientesController = {
             res.json(alterarPaciente)
             
         } catch (error) {
+            console.log(error);
             res.status(400).json("Houve algum erro não foi possível alterar o cliente")
         }
 
@@ -80,7 +82,8 @@ const pacientesController = {
             
             
         } catch (error) {
-            res.status(400).json("Houve algum erro. Contate o administrador do sistema!")
+            console.log(error);
+            res.status(400).json("Houve algum erro. Veja se o paciente possui atendimento marcado. Contate o administrador do sistema!")
         }
     }
 }
