@@ -30,10 +30,15 @@ const Atendimentos = db.define("Atendimentos", {
 		observacoes: {
 			type: DataTypes.STRING,
 		},
+		createdAt:{
+			type: DataTypes.DATE
+		},
+		updatedAt:{
+			type: DataTypes.DATE
+		}
 	},
 	{
 		tableName: "atendimentos",
-		timestamps: false,
 	}
 )
 
