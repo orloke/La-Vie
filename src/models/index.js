@@ -1,19 +1,24 @@
-const Pacientes = require('./Pacientes')
-const Psicologos = require('./Psicologos')
-const PacientesPsicologos = require('./PacientesPsicologos')
+const Pacientes = require("./Pacientes");
+const Psicologos = require("./Psicologos");
+const Atendimentos = require("./Atendimentos");
 
-Pacientes.belongsToMany(Psicologos,{
-    foreignKey: 'idpaciente',
-    through: PacientesPsicologos
-})
+Psicologos.hasMany(Atendimentos, {
+    foreignKey: 'id_psicologo'
+  })
+Atendimentos.belongsTo(Psicologos, {
+    foreignKey: 'id_psicologo'
+  })
 
-Psicologos.belongsToMany(Pacientes,{
-    foreignKey: 'idpsicologo',
-    through: PacientesPsicologos
-})
+Pacientes.hasMany(Atendimentos, {
+    foreignKey: 'id_paciente'
+  })
+Atendimentos.belongsTo(Pacientes, {
+    foreignKey: 'id_paciente'
+  })
+
 
 module.exports = {
-    Pacientes,
-    Psicologos,
-    PacientesPsicologos
-}
+	Pacientes,
+	Psicologos,
+	Atendimentos,
+};
