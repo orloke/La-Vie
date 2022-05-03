@@ -16,10 +16,15 @@ const Pacientes = db.define('Pacientes',{
     email:{
         type: DataTypes.STRING,
     },
+    createdAt:{
+        type: DataTypes.DATE
+    },
+    updatedAt:{
+        type: DataTypes.DATE
+    }
 
 },{
-    tableName: 'pacientes',
-    timestamps: false
+    tableName: 'pacientes'
 }
 )
 

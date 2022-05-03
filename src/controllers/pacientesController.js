@@ -36,6 +36,7 @@ const pacientesController = {
         res.status(201).json(novoPaciente)
 
         } catch (error) {
+            console.log(error);
             res.status(400).send('Ocorreu algum erro. Entre em contato com o administrador do sistema');
         }
 
