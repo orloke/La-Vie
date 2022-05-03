@@ -11,7 +11,7 @@ const Atendimentos = db.define("Atendimentos", {
 			autoIncrement: true,
 		},
 		id_psicologo: {
-			type: DataTypes.STRING,
+			type: DataTypes.INTEGER,
 			references: {
 				model: Psicologos,
 				key: "id_psicologo",
