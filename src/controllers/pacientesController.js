@@ -10,7 +10,7 @@ const pacientesController = {
         if(id){
             Object.assign(filter,{
                 where:{
-                    ID_PACIENTE:id
+                    id_paciente:id
                 }
             })
         }
