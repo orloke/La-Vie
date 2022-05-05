@@ -8,22 +8,16 @@ const LoginController = {
       const { email, password } = req.body;
         try {
           
-          const user = await Psicologos.findOne({where: {email, password}});
+          const user = await Psicologos.findOne({where: {email}});
 
-          if (!user) {
+
+
+          if (!user && !checkPassword(password)) {
             return res.status(401).json({ message: 'E-mail inválido, verifique e tente novamente'})
           }
           const {id ,name } = user;
 
-          return res.json({
-            user:{
-              id,
-              name,
-              email
-            },
-            token: jwt.sign({id},auth.secret, {
-              expiresIn:auth.expiresIn
-            })
+          return res.status(200).json({ token: jwt.sign({id},auth.secret, {expiresIn:auth.expiresIn})
 
           })
 
