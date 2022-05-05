@@ -6,6 +6,8 @@ CREATE TABLE pacientes (
     nome VARCHAR(45) NOT NULL,
     data_nascimento DATETIME NOT NULL,
     email VARCHAR(45) NOT NULL,
+    createdAt DATETIME NOT NULL,
+    updatedAt DATETIME NOT NULL,
     PRIMARY KEY (id_paciente));
 
 CREATE TABLE psicologos (
@@ -14,6 +16,8 @@ CREATE TABLE psicologos (
     email VARCHAR(45) NOT NULL,
     senha VARCHAR(200) NOT NULL,
     apresentacao VARCHAR(200) NOT NULL,
+    createdAt DATETIME NOT NULL,
+    updatedAt DATETIME NOT NULL,
     PRIMARY KEY (id_psicologo));
 
 CREATE TABLE IF NOT EXISTS atendimentos (
@@ -22,6 +26,8 @@ CREATE TABLE IF NOT EXISTS atendimentos (
     id_paciente INT(11) NOT NULL,
     data_atendimento DATETIME NOT NULL,
     observacoes VARCHAR(200) NOT NULL,
+    createdAt DATETIME NOT NULL,
+    updatedAt DATETIME NOT NULL,
     PRIMARY KEY (id_atendimento),
     INDEX id_psicologo_idx (id_psicologo ASC) VISIBLE,
     INDEX id_paciente_idx (id_paciente ASC) VISIBLE,

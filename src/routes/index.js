@@ -6,8 +6,13 @@ const informacoesController = require('../controllers/informacoesController')
 const atendimentosController = require('../controllers/atendimentosController')
 const psicologosController = require('../controllers/psicologosController')
 const psicologoValidate = require('../validation/createPsicologos')
+const loginController = require ('../controllers/loginController');
 
 const routes = express.Router()
+
+// Rotas de login 
+
+routes.post("/login", loginController.login)
 
 // Rotas dos pacientes
 
