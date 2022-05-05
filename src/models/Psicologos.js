@@ -27,6 +27,9 @@ const Psicologos = db.define(
         updatedAt: {
             type: DataTypes.DATE,
         },
+        status:{
+			type: DataTypes.INTEGER,
+		}
     },
     {
         tableName: 'psicologos',
