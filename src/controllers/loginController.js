@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const auth = require('../config/auth');
+const auth = require('../config/userToken');
 const  { Psicologos } = require("../models/");
 
 const LoginController = {
@@ -13,7 +13,7 @@ const LoginController = {
 
 
           if (!user && !checkPassword(password)) {
-            return res.status(401).json({ message: 'E-mail inválido, verifique e tente novamente'})
+            return res.status(401).json({ message: 'E-mail ou senha inválido, verifique e tente novamente”'})
           }
           const {id ,name } = user;
 
