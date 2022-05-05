@@ -12,7 +12,7 @@ const routes = express.Router()
 
 // Rotas de login 
 
-routes.post("/login", loginController.login)
+routes.post("/login", loginController.login);
 
 // Rotas dos pacientes
 
