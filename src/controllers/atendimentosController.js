@@ -5,7 +5,13 @@ const atendimentosController = {
 	async listarAtendimentos(req, res) {
 		try {
 			let listaDeAtendimentos = await Atendimentos.findAll({
-				include: [Pacientes, Psicologos],
+				include: [{
+					model:Psicologos,
+					attributes: ['NOME']
+				}, {
+					model:Pacientes,
+					attributes: ['NOME']
+				}]
 			});
 			res.status(200).json(listaDeAtendimentos);
 		} catch (error) {
