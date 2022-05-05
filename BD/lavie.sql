@@ -8,6 +8,7 @@ CREATE TABLE pacientes (
     email VARCHAR(45) NOT NULL,
     createdAt DATETIME NOT NULL,
     updatedAt DATETIME NOT NULL,
+    status INT(1) NOT NULL,
     PRIMARY KEY (id_paciente));
 
 CREATE TABLE psicologos (
@@ -18,6 +19,7 @@ CREATE TABLE psicologos (
     apresentacao VARCHAR(200) NOT NULL,
     createdAt DATETIME NOT NULL,
     updatedAt DATETIME NOT NULL,
+    status INT(1) NOT NULL,
     PRIMARY KEY (id_psicologo));
 
 CREATE TABLE IF NOT EXISTS atendimentos (
