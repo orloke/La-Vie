@@ -7,12 +7,16 @@ const atendimentosController = require('../controllers/atendimentosController')
 const psicologosController = require('../controllers/psicologosController')
 const psicologoValidate = require('../validation/createPsicologos')
 const loginController = require ('../controllers/loginController');
+const authMiddleware = require ('../middelwares/auth');
 
 const routes = express.Router()
 
 // Rotas de login 
 
-routes.post("/login", loginController.login);
+routes.post("/login", authMiddleware, loginController.login);
+
+//Rotas autenticadas
+//routes.use(authMiddleware);
 
 // Rotas dos pacientes
 
