@@ -35,7 +35,7 @@ const Atendimentos = db.define("Atendimentos", {
 		},
 		updatedAt:{
 			type: DataTypes.DATE
-		}
+		},		
 	},
 	{
 		tableName: "atendimentos",
