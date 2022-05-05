@@ -4,6 +4,7 @@ module.exports = validate({
     body: Joi.object({
         nome: Joi.string().required(),
         email : Joi.string().required(),
-        data_nascimento: Joi.string()
+        data_nascimento: Joi.string(),
+        status: Joi.number().integer().required()
     })
 })
