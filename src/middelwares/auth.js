@@ -1,26 +1,24 @@
-const jwt = require("jsonwebtoken");
-const {promissefy} = require("util");
-const authConfig = require("../config/auth");
+const jwt = require('jsonwebtoken');
+const { promisify } = require('util');
 
+const userToken = require('../config/userToken');
 
-export default async (req,res,next)=>{
-    const authHeaders = req.headers.authorization;
-
-    if(!authHeaders){
-        return res.status(401).json({message: "Faça a autenticação antes de usar as rotas"});
+module.exports = async (req, res, next) => {
+  try {
+    const autHeader = req.headers.authorization;
+    if (!autHeader) {
+      return res
+        .status(401)
+        .json({ error: 'Token não encontrado!' });
     }
 
-    const[bearer , token] = authHeaders.split(" ");
+    const [, token] = autHeader.split(' ');
 
-    try{
-        
-        const decoded = await jwt.verify(jwt.verify, token, authConfig);
-        req.userID = decoded.id;
-        next();
+    await promisify(jwt.verify)(token, userToken.secret);
 
-    }catch(error){
-        return res.status(401).json({error: {message: "Token inválido"}});
-    }
-    console.log(authHeader);
-    
-}
+    return next();
+  } catch (error) {
+    // se for
+    return res.status(401).json({ error: error.message });
+  }
+};
