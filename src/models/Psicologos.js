@@ -21,6 +21,10 @@ const Psicologos = db.define(
         apresentacao: {
             type: DataTypes.STRING,
         },
+        status: {
+            type: DataTypes.INTEGER,
+            allownull: false,
+        },
         createdAt: {
             type: DataTypes.DATE,
         },
@@ -30,7 +34,6 @@ const Psicologos = db.define(
     },
     {
         tableName: 'psicologos',
-        //timestamps: false,
     }
 );
 
