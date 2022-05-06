@@ -36,6 +36,22 @@ const psicologosController = {
         }
     },
 
+    cadastrar: async (req, res) => {
+        const { nome, email, senha, apresentacao } = req.body;
+
+        const novaSenha = bcrypt.hashSync(senha, 10);
+
+        const novoPsicologo = await Psicologos.create({
+            nome,
+            email,
+            senha: novaSenha,
+            apresentacao,
+            status: 1,
+        });
+
+        res.status(201).json(novoPsicologo);
+    },
+
     atualizar: async (req, res) => {
         const { id_psicologo } = req.params;
         const { nome, email, senha, apresentacao } = req.body;
