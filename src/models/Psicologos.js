@@ -21,19 +21,15 @@ const Psicologos = db.define(
         apresentacao: {
             type: DataTypes.STRING,
         },
-        status: {
-            type: DataTypes.INTEGER,
-            allownull: false,
-        },
         createdAt: {
             type: DataTypes.DATE,
         },
         updatedAt: {
             type: DataTypes.DATE,
         },
-        status:{
-			type: DataTypes.INTEGER,
-		}
+        status: {
+            type: DataTypes.INTEGER,
+        },
     },
     {
         tableName: 'psicologos',
