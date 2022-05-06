@@ -43,3 +43,7 @@ CREATE TABLE IF NOT EXISTS atendimentos (
         REFERENCES lavie.pacientes (id_paciente)
         ON DELETE NO ACTION
         ON UPDATE NO ACTION);
+
+ALTER TABLE `lavie`.`psicologos` 
+ADD UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE;
+;
