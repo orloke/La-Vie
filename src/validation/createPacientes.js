@@ -3,8 +3,7 @@ const {validate, Joi} = require('express-validation')
 module.exports = validate({
     body: Joi.object({
         nome: Joi.string().required(),
-        email : Joi.string().required(),
-        data_nascimento: Joi.string(),
-        status: Joi.number().integer().required()
+        email : Joi.string().email().required(),
+        data_nascimento: Joi.date().required(),      
     })
 })
