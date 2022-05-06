@@ -6,8 +6,17 @@ const informacoesController = require('../controllers/informacoesController')
 const atendimentosController = require('../controllers/atendimentosController')
 const psicologosController = require('../controllers/psicologosController')
 const psicologoValidate = require('../validation/createPsicologos')
+const loginController = require ('../controllers/loginController');
+const authMiddleware = require ('../middelwares/auth');
 
 const routes = express.Router()
+
+// Rotas de login 
+
+routes.post("/login", loginController.login);
+
+//Rotas autenticadas
+//routes.use(authMiddleware);
 
 // Rotas dos pacientes
 
@@ -19,7 +28,7 @@ routes.delete('/pacientes/:id', pacientesController.deletar)
 // Rotas dos psicologos
 
 routes.get('/psicologos', psicologosController.listar);
-routes.get('/psicologos/:id_psicologo', psicologosController.listarPorID);
+routes.get('/psicologos/:id_psicologo',authMiddleware, psicologosController.listarPorID);
 routes.post('/psicologos', psicologoValidate, psicologosController.cadastrar);
 routes.put('/psicologos/:id_psicologo',psicologoValidate,psicologosController.atualizar);
 routes.delete('/psicologos/:id_psicologo', psicologosController.deletar);

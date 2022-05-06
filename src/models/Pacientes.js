@@ -21,7 +21,10 @@ const Pacientes = db.define('Pacientes',{
     },
     updatedAt:{
         type: DataTypes.DATE
-    }
+    },
+    status:{
+        type: DataTypes.INTEGER,
+    },
 
 },{
     tableName: 'pacientes'

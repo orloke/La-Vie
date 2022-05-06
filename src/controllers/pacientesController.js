@@ -32,7 +32,7 @@ const pacientesController = {
         try {
         const {nome, email, data_nascimento} = req.body
         const newDate = helperDate.convertDate(data_nascimento)        
-        const novoPaciente = await Pacientes.create({nome, email, data_nascimento:newDate})
+        const novoPaciente = await Pacientes.create({nome, email, data_nascimento:newDate, status:1})
         res.status(201).json(novoPaciente)
 
         } catch (error) {
@@ -44,10 +44,10 @@ const pacientesController = {
     async alterar(req,res){
         try {
             const {id} = req.params
-            const {nome, email, data_nascimento} = req.body
+            const {nome, email, data_nascimento, status} = req.body
             const newDate = helperDate.convertDate(data_nascimento)  
         
-            const procurarPaciente = await Pacientes.update({nome, email, data_nascimento: newDate},{
+            const procurarPaciente = await Pacientes.update({nome, email, data_nascimento: newDate, status},{
                 where:{
                     ID_PACIENTE: id,
                 }
@@ -70,7 +70,7 @@ const pacientesController = {
         
         try {
             const {id} = req.params
-            const deletarPaciente = await Pacientes.destroy({
+            const deletarPaciente = await Pacientes.update({status:0},{
                 where:{
                     ID_PACIENTE: id,
                 }

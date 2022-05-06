@@ -5,15 +5,19 @@ const atendimentosController = {
 	async listarAtendimentos(req, res) {
 		try {
 			let listaDeAtendimentos = await Atendimentos.findAll({
-				include: [Pacientes, Psicologos],
+				include: [{
+					model:Psicologos,
+					attributes: ['NOME']
+				}, {
+					model:Pacientes,
+					attributes: ['NOME']
+				}]
 			});
 			res.status(200).json(listaDeAtendimentos);
-
 		} catch (error) {
 			console.error("Erro ao buscar a lista de atendimentos, tente novamente.");
 		}
 	},
-
 
 	async buscarAtendimento(req, res) {
 		try {
@@ -28,24 +32,30 @@ const atendimentosController = {
 				res.status(200).json(buscaDeAtendimento);
 			}
 		} catch (error) {
-			console.log("Id nao encontrado!");
+			console.error("Id nao encontrado!");
 			res.status(404);
 		}
 	},
 
 	async cadastrarAtendimentos(req, res) {
-		const { id_psicologo, id_paciente, data_atendimento, observacoes } =
-			req.body;
-		const newDate = helperDate.convertDate(data_atendimento);
+		try {
+			const { id_psicologo, id_paciente, data_atendimento, observacoes } =
+				req.body;
+			const newDate = helperDate.convertDate(data_atendimento);
 
-		const novoAtendimento = await Atendimentos.create({
-			id_psicologo,
-			id_paciente,
-			data_atendimento: newDate,
-			observacoes,
-		});
+			const novoAtendimento = await Atendimentos.create({
+				id_paciente,
+				data_atendimento: newDate,
+				observacoes,
+				id_psicologo: req.auth.id,
+			});
 
-		res.status(201).json(novoAtendimento);
+			res.status(201).json(novoAtendimento);
+		} catch (error) {
+			console.error("Erro na requisição!");
+			res.status(400);
+			
+		}
 	},
 };
 
