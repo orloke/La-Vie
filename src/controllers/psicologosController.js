@@ -3,7 +3,11 @@ const bcrypt = require('bcryptjs');
 
 const psicologosController = {
     listar: async (req, res) => {
-        const listaPsicologos = await Psicologos.findAll();
+        const listaPsicologos = await Psicologos.findAll({
+            where: {
+                status: 1,
+            },
+        });
 
         res.json(listaPsicologos);
     },
@@ -15,11 +19,13 @@ const psicologosController = {
                 attributes: ['id_psicologo', 'nome', 'email', 'apresentacao'],
             };
 
-            
-            const listaPsicologos = await Psicologos.findByPk(
-                id_psicologo,
-                filter
-            );
+            const listaPsicologos = await Psicologos.findOne({
+                where: {
+                    status: 1,
+                    id_psicologo,
+                },
+                filter,
+            });
 
             if (listaPsicologos) {
                 return res.status(200).json(listaPsicologos);
@@ -40,6 +46,7 @@ const psicologosController = {
             email,
             senha: novaSenha,
             apresentacao,
+            status: 1,
         });
 
         res.status(201).json(novoPsicologo);
@@ -62,6 +69,7 @@ const psicologosController = {
                 {
                     where: {
                         id_psicologo,
+                        status: 1,
                     },
                 }
             );
@@ -76,16 +84,25 @@ const psicologosController = {
     deletar: async (req, res) => {
         const { id_psicologo } = req.params;
         try {
-            const deletaPsic = await Psicologos.destroy({
+            const deletaPsic = await Psicologos.findOne({
                 where: {
+                    status: 1,
                     id_psicologo,
                 },
             });
 
             if (deletaPsic) {
+                await Psicologos.update(
+                    { status: 0 },
+                    {
+                        where: {
+                            id_psicologo,
+                        },
+                    }
+                );
                 return res.status(204).send();
             }
-            res.status(404).json('Id não encontrado!');
+            return res.status(404).json('Id não encontrado!');
         } catch (error) {
             res.status(500).json('Ocorreu algum problema!');
         }
