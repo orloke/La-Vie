@@ -28,7 +28,7 @@ routes.delete('/pacientes/:id', pacientesController.deletar)
 // Rotas dos psicologos
 
 routes.get('/psicologos', psicologosController.listar);
-routes.get('/psicologos/:id_psicologo',authMiddleware, psicologosController.listarPorID);
+routes.get('/psicologos/:id_psicologo', psicologosController.listarPorID);
 routes.post('/psicologos', psicologoValidate, psicologosController.cadastrar);
 routes.put('/psicologos/:id_psicologo',psicologoValidate,psicologosController.atualizar);
 routes.delete('/psicologos/:id_psicologo', psicologosController.deletar);
@@ -42,8 +42,8 @@ routes.get('/dashboard/media-atendimentos', informacoesController.mediaAtendimen
 
 // Rotas dos Atendimentos
 
-routes.get('/atendimentos', atendimentosController.listarAtendimentos)
-routes.get('atendimentos/:id', atendimentosController.buscarAtendimento)
-routes.post('/atendimentos/', atendimentosController.cadastrarAtendimentos)
+routes.get('/atendimentos',  authMiddleware, atendimentosController.listarAtendimentos)
+routes.get('atendimentos/:id', authMiddleware, atendimentosController.buscarAtendimento)
+routes.post('/atendimentos/', authMiddleware, atendimentosController.cadastrarAtendimentos)
 
 module.exports = routes

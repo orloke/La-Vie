@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
 
     const [, token] = autHeader.split(' ');
 
-    await promisify(jwt.verify)(token, userToken.secret);
+    await promisify(jwt.verify)(token, userToken.key);
 
     return next();
   } catch (error) {

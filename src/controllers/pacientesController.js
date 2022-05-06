@@ -1,4 +1,4 @@
-const {Pacientes} = require('../models/')
+const {Pacientes, Atendimentos} = require('../models/')
 const {helperDate} = require('../helper')
 
 const pacientesController = {
@@ -31,9 +31,13 @@ const pacientesController = {
     async cadastrar(req,res){
         try {
         const {nome, email, data_nascimento} = req.body
-        const newDate = helperDate.convertDate(data_nascimento)        
+        const newDate = helperDate.convertDate(data_nascimento)
+        const verificandoPaciente = await Pacientes.findAll({where:{email}})
+        if(verificandoPaciente.length!=0){
+            return res.status(400).send('Email já cadastrado!')
+        }        
         const novoPaciente = await Pacientes.create({nome, email, data_nascimento:newDate, status:1})
-        res.status(201).json(novoPaciente)
+        return res.status(201).json(novoPaciente)
 
         } catch (error) {
             console.log(error);
@@ -70,13 +74,18 @@ const pacientesController = {
         
         try {
             const {id} = req.params
+            const idpaciente = await Atendimentos.findAll({where:{id_paciente:id}})
+            if(idpaciente==0){
+                await Pacientes.destroy({where:{id_paciente:id}})
+                return res.status(400).send('Paciente deletado!')
+            }
             const deletarPaciente = await Pacientes.update({status:0},{
                 where:{
                     ID_PACIENTE: id,
                 }
             })
             if(deletarPaciente){
-                return res.status(204).send()
+                return res.status(200).send('Paciente inativado!')
             }
 
             res.status(404).json('Id não encontrado')
