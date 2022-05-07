@@ -42,8 +42,8 @@ routes.get('/dashboard/media-atendimentos', informacoesController.mediaAtendimen
 
 // Rotas dos Atendimentos
 
-routes.get('/atendimentos',  authMiddleware, atendimentosController.listarAtendimentos)
-routes.get('atendimentos/:id', authMiddleware, atendimentosController.buscarAtendimento)
-routes.post('/atendimentos/', authMiddleware, atendimentosController.cadastrarAtendimentos)
+routes.get('/atendimentos', atendimentosController.listarAtendimentos)
+routes.get('atendimentos/:id', atendimentosController.buscarAtendimento)
+routes.post('/atendimentos', authMiddleware, atendimentosController.cadastrarAtendimentos)
 
 module.exports = routes

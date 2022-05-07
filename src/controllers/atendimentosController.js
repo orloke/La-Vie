@@ -39,9 +39,15 @@ const atendimentosController = {
 
 	async cadastrarAtendimentos(req, res) {
 		try {
-			const { id_psicologo, id_paciente, data_atendimento, observacoes } =
-				req.body;
+			const { id_paciente, data_atendimento, observacoes } = req.body;
+
 			const newDate = helperDate.convertDate(data_atendimento);
+
+			const buscaPaciente = await Pacientes.findByPk(id_paciente);
+
+			if(!buscaPaciente) {
+				return res.status(400).json("Informe um paciente válido");
+			}
 
 			const novoAtendimento = await Atendimentos.create({
 				id_paciente,
@@ -51,8 +57,9 @@ const atendimentosController = {
 			});
 
 			res.status(201).json(novoAtendimento);
+		
 		} catch (error) {
-			console.error("Erro na requisição!");
+			console.error("Erro na requisição!" + error);
 			res.status(400);
 			
 		}
