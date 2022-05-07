@@ -2,6 +2,7 @@ const express = require('express')
 
 const pacientesController = require('../controllers/pacientesController')
 const createPacientes = require('../validation/createPacientes')
+const createUpdatePacientes = require('../validation/createUpdatePacientes')
 const informacoesController = require('../controllers/informacoesController')
 const atendimentosController = require('../controllers/atendimentosController')
 const psicologosController = require('../controllers/psicologosController')
@@ -22,7 +23,7 @@ routes.post("/login", loginController.login);
 
 routes.get('/pacientes',pacientesController.listar)
 routes.post('/pacientes',createPacientes, pacientesController.cadastrar)
-routes.put('/pacientes/:id',createPacientes, pacientesController.alterar)
+routes.put('/pacientes/:id',createUpdatePacientes, pacientesController.alterar)
 routes.delete('/pacientes/:id', pacientesController.deletar)
 
 // Rotas dos psicologos
