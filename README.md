@@ -5,4 +5,5 @@ Com a API é possível criar, exibir, alterar e deletar pacientes e psicólogos.
 * Área de login para cadastro de atendimentos
 * Quantidade de atendimento por psicólogo
 * Quantidade de consultas por paciente
-* Outras informações
+* Total de pacientes e psicologos
+* Média de atendimentos por psicologo
